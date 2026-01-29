@@ -4,6 +4,7 @@
 #include <QLabel>
 #include <QGridLayout>
 #include <QMainWindow>
+#include "Chessboard.hpp"
 
 class GameWindow : public QMainWindow 
 {
@@ -15,5 +16,5 @@ class GameWindow : public QMainWindow
     private:
         const int BOARD_SIZE = 8;
         QGridLayout* chessBoardLayout = new QGridLayout();
-        std::vector<std::vector<QLabel*>> chessSquares{8, std::vector(8, new QLabel(""))};
+        Chessboard chessBoard;
 };

@@ -3,15 +3,16 @@
 void GameWindow::createChessBoard() {
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
-            chessSquares[i][j] = new QLabel("");
+            chessBoard.board[i][j] = new QLabel("");
+            chessBoard.board[i][j]->setAlignment(Qt::AlignCenter);
+            
             if ((i+j) % 2 == 0) {
-                chessSquares[i][j]->setStyleSheet("background-color : #D7BEA8");
+                chessBoard.board[i][j]->setStyleSheet("background-color : #D7BEA8");
             }
             else {
-                chessSquares[i][j]->setStyleSheet("background-color : #B49286");
+                chessBoard.board[i][j]->setStyleSheet("background-color : #B49286");
             }
-            chessSquares[i][j]->setAlignment(Qt::AlignCenter);
-            chessBoardLayout->addWidget(chessSquares[i][j], i, j);
+            chessBoardLayout->addWidget(chessBoard.board[i][j], i, j);
         }
     }
 }
@@ -30,4 +31,5 @@ GameWindow::GameWindow() {
     mainWidget->setLayout(chessBoardLayout);
 
     createChessBoard();
+
 }
