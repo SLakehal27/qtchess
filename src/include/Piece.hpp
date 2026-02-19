@@ -5,12 +5,18 @@
 #include "MoveValidator.hpp"
 
 class Piece {
+    public: 
+        PieceColor color;
+        Position position;
+
+        Piece(Position position, PieceColor color) {
+            this->position = position;
+            this->color = color;
+        }
+        
     protected:
         virtual ~Piece() = default;
-        virtual Position getPosition() = 0;
         virtual std::vector<Position> getMovePositions() = 0;
         virtual std::vector<Position> moveAt(Position position) = 0;
-        Position position;
-        PieceColor color;
         MoveValidator validator;
 };

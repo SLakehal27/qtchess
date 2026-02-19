@@ -1,10 +1,5 @@
 #include "./include/Pawn.hpp"
 
-Position Pawn::getPosition()
-{
-    return this->position;
-}
-
 std::vector<Position> Pawn::getMovePositions()
 {
     return std::vector<Position>();

@@ -1,4 +1,6 @@
 #include "./include/GameWindow.hpp"
+#include "./include/PieceLabel.hpp"
+#include "./include/Pawn.hpp"
 
 GameWindow::GameWindow() {
     QWidget* mainWidget = new QWidget;
@@ -31,5 +33,10 @@ void GameWindow::createChessBoard() {
             chessBoardLayout->addWidget(chessBoard.board[i][j], i, j);
         }
     }
+    
+    // Test: Adding Pawn to the board.
+    // Position testPosition{6,2};
+    // std::shared_ptr<Pawn> pawn = std::make_shared<Pawn>(testPosition, PieceColor::White);
+    // chessBoardLayout->addWidget(new PieceLabel(pawn), testPosition.x, testPosition.y);
 }
 

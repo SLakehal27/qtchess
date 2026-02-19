@@ -10,4 +10,5 @@ class PieceLabel : public QLabel {
         void clicked(std::unique_ptr<PieceLabel> piece);
     protected:
         void mousePressEvent(QMouseEvent* event) override;
+        std::string getPieceSymbol(std::shared_ptr<Piece> piece);
 };
