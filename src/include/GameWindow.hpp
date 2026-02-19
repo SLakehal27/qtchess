@@ -14,7 +14,6 @@ class GameWindow : public QMainWindow
         GameWindow();
         void createChessBoard();
     private:
-        const int BOARD_SIZE = 8;
         QGridLayout* chessBoardLayout = new QGridLayout();
         Chessboard chessBoard;
 };
