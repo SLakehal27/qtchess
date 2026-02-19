@@ -22,7 +22,6 @@ void GameWindow::createChessBoard() {
         for (int j = 0; j < chessBoard.SIZE; j++) {
             chessBoard.board[i][j] = new QLabel("");
             chessBoard.board[i][j]->setAlignment(Qt::AlignCenter);
-            
             if ((i+j) % 2 == 0) {
                 chessBoard.board[i][j]->setStyleSheet("background-color : #D7BEA8");
             }

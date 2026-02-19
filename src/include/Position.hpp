@@ -9,7 +9,7 @@ struct Position
         return x == other.x && y == other.y; 
     }
 
-    bool isLegal(const int board_size) {
+    bool isLegal(const int board_size = 8) {
         return this->x >= 0 && this->x < board_size
         && this->y >= 0 && this->y < board_size;
     }
