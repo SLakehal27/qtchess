@@ -1,4 +1,0 @@
-/home/tsuki/projects/qtchess/src/build/CMakeFiles/QtChess.dir
-/home/tsuki/projects/qtchess/src/build/CMakeFiles/edit_cache.dir
-/home/tsuki/projects/qtchess/src/build/CMakeFiles/rebuild_cache.dir
-/home/tsuki/projects/qtchess/src/build/CMakeFiles/QtChess_autogen.dir

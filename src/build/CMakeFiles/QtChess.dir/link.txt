@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/QtChess.dir/QtChess_autogen/mocs_compilation.cpp.o CMakeFiles/QtChess.dir/GameWindow.cpp.o CMakeFiles/QtChess.dir/main.cpp.o -o QtChess  /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.3 /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.15.3 /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.3 
