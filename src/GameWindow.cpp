@@ -1,6 +1,7 @@
 #include "GameWindow.hpp"
 #include "PieceLabel.hpp"
 #include "Pawn.hpp"
+#include "Parser.hpp"
 
 GameWindow::GameWindow() {
     QWidget* mainWidget = new QWidget;
@@ -16,7 +17,10 @@ GameWindow::GameWindow() {
     mainWidget->setLayout(chessBoardLayout);
 
     this->createChessBoard();
-
+    
+    Parser parser(&chessBoard);
+    std::ifstream file("default.txt");
+    parser.parse(file);
 }
 
 void GameWindow::createChessBoard() {
@@ -33,10 +37,5 @@ void GameWindow::createChessBoard() {
             chessBoardLayout->addWidget(chessBoard.board[i][j], i, j);
         }
     }
-
-    // Test: Adding Pawn to the board.
-    // Position testPosition{6,2};
-    // std::shared_ptr<Pawn> pawn = std::make_shared<Pawn>(testPosition, PieceColor::Black);
-    // chessBoard.board[testPosition.x][testPosition.y]->setDisplayPiece(pawn);
 }
 

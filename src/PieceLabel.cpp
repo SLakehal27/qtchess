@@ -6,7 +6,9 @@
 
 void PieceLabel::setDisplayPiece(std::shared_ptr<Piece> piece)
 {
+    if (piece == nullptr) return;
     setText(QString::fromStdString(getPieceSymbol(piece)));
+    // std::cout << getPieceSymbol(piece) << std::endl;
     setAlignment(Qt::AlignCenter);
     this->setFontSize(48);
     this->setPieceColor(piece);
@@ -24,7 +26,7 @@ void PieceLabel::mousePressEvent(QMouseEvent *event)
 std::string PieceLabel::getPieceSymbol(std::shared_ptr<Piece> piece)
 {
     if (auto pawn = std::dynamic_pointer_cast<Pawn>(piece)) return "\u265f";
-    return "\u2440";
+    return std::string();
 }
 
 void PieceLabel::setFontSize(const int font_size)
