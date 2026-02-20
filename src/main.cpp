@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <QApplication>
-#include "./include/GameWindow.hpp"
+#include "GameWindow.hpp"
 
 int main (int argc, char** argv) {
     QApplication app(argc, argv);

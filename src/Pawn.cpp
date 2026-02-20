@@ -1,4 +1,4 @@
-#include "./include/Pawn.hpp"
+#include "Pawn.hpp"
 
 std::vector<Position> Pawn::getMovePositions()
 {
