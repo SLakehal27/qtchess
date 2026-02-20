@@ -15,13 +15,16 @@ void Parser::parse(std::ifstream& file)
     Position position;
     std::string color = "";
 
+    if (!file.is_open()) {
+        std::cout << "Could not open game mode file" << std::endl;
+        return;
+    }
+
     while(std::getline(file, str)) {
-        std::cout << str << std::endl;
         file >> type;
         file >> position.x;
         file >> position.y;
         file >> color;
-
         addPieceToBoard(position, type, (color == "b" ? PieceColor::Black : PieceColor::White));
     }
 
