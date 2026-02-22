@@ -2,7 +2,6 @@
 #include <vector>
 #include "Position.hpp"
 #include "PieceColor.hpp"
-#include "MoveValidator.hpp"
 
 class Piece {
     public: 
@@ -18,5 +17,4 @@ class Piece {
         virtual ~Piece() = default;
         virtual std::vector<Position> getMovePositions() = 0;
         virtual std::vector<Position> moveAt(Position position) = 0;
-        MoveValidator validator;
 };

@@ -15,7 +15,4 @@ class PieceLabel : public QLabel {
         std::string getPieceSymbol(std::shared_ptr<Piece> piece);
         void setFontSize(const int font_size);
         void setPieceColor(std::shared_ptr<Piece> piece);
-
-    private:
-        std::shared_ptr<Piece> piece;
 };

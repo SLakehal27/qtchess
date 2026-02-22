@@ -12,7 +12,6 @@ void PieceLabel::setDisplayPiece(std::shared_ptr<Piece> piece)
     setAlignment(Qt::AlignCenter);
     this->setFontSize(48);
     this->setPieceColor(piece);
-    this->piece = piece;
 }
 
 void PieceLabel::mousePressEvent(QMouseEvent *event)
