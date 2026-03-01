@@ -29,7 +29,7 @@ void GameWindow::createChessBoard(Chessboard& chessBoard) {
         for (int j = 0; j < chessBoard.SIZE; j++) {
             chessBoard.board[i][j] = new PieceLabel("");
             chessBoard.board[i][j]->setAlignment(Qt::AlignCenter);
-            if ((i+j) % 2 == 0) {
+            if ((i + j) % 2 == 0) {
                 chessBoard.board[i][j]->setStyleSheet("background-color : #D7BEA8");
             } else {
                 chessBoard.board[i][j]->setStyleSheet("background-color : #B49286");
@@ -42,19 +42,13 @@ void GameWindow::createChessBoard(Chessboard& chessBoard) {
 }
 
 void GameWindow::displayPieceMoves(PieceLabel* pieceLabel) {
-    if(pieceLabel->piece == nullptr) return;
 
-    if(highlightLabels.size() > 0) {
-        for (auto& highlightLabel : highlightLabels) {
-            highlightLabel->deleteLater();
-        }
-        highlightLabels.clear();
-    }
-    
+    clearHighlights();
+    if(pieceLabel->piece == nullptr) return;
     // std::cout << "pos : " << pieceLabel->piece->position << std::endl;
     std::vector<Position> validMoves = pieceLabel->piece->getValidMoves();
-    if(validMoves.size() == 0) return;
-
+    // std::cout << validMoves.size() << std::endl;
+    
     // std::cout << "moves : [";
     // if (validMoves.size() == 0) {
     //     std:: cout << "]" << std::endl;
@@ -69,8 +63,40 @@ void GameWindow::displayPieceMoves(PieceLabel* pieceLabel) {
     // std::cout << "color : " << pieceLabel->piece->color << std::endl;
     // std::cout << std::endl;
 
+    if(validMoves.size() == 0) return;
+
     for(int i = 0; i < validMoves.size(); i++) {
         highlightLabels.push_back(new HighlightLabel());
         chessBoardLayout->addWidget(highlightLabels[i], validMoves[i].x, validMoves[i].y);
+        highlightLabels[i]->originalPosition = pieceLabel->piece->position;
+        connect(highlightLabels[i], SIGNAL(clicked(HighlightLabel*, Position)), this, SLOT(displayMove(HighlightLabel*, Position)));
     }
+}
+
+void GameWindow::displayMove(HighlightLabel* highlightLabel, Position originalPosition)
+{
+    clearHighlights();
+
+    int x, y, rowSpan, colSpan;
+    chessBoardLayout->getItemPosition(chessBoardLayout->indexOf(highlightLabel), &x, &y, &rowSpan, &colSpan);
+
+    PieceLabel* pieceLabel = gameManager->chessBoard.board[originalPosition.x][originalPosition.y];
+
+    pieceLabel->setText("");
+    disconnect(pieceLabel, nullptr, nullptr, nullptr);
+
+    pieceLabel->piece->position = Position{x, y};
+    gameManager->chessBoard.board[x][y]->setDisplayPiece(pieceLabel->piece);
+    connect(gameManager->chessBoard.board[x][y], SIGNAL(clicked(PieceLabel*)), this, SLOT(displayPieceMoves(PieceLabel*)));
+    pieceLabel->piece.reset();
+} 
+
+void GameWindow::clearHighlights() {
+    if(highlightLabels.size() == 0) return;
+
+    for (auto& highlightLabel : highlightLabels) {
+        highlightLabel->deleteLater();
+    }
+    
+    highlightLabels.clear();
 }

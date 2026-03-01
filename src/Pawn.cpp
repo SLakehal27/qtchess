@@ -11,31 +11,53 @@ std::vector<Position> Pawn::getMoves()
     switch (this->color)
     {
         case PieceColor::White:
-            if(gameManager->isPieceAt({position.x - 1, position.y})) break;
-
+        
             // Starting move
-            if (this->position.x == 6) {
+            if (this->position.x == 6 && !gameManager->isPieceAt({position.x - 2, position.y})) {
                 moves.push_back({position.x - 2, position.y});
             }
 
+            // Attack (left)
+            if(gameManager->isPieceAt({position.x - 1, position.y - 1})) {
+                moves.push_back({position.x - 1, position.y - 1});
+            }
+
+            // Attack (Right)
+            if(gameManager->isPieceAt({position.x - 1, position.y + 1})) {
+                moves.push_back({position.x - 1, position.y + 1});
+            }
+
+            // Piece in front of pawn
+            if(gameManager->isPieceAt({position.x - 1, position.y})) break;
+
+            // Regular move
             moves.push_back({position.x - 1, position.y});
-            
             break;
         case PieceColor::Black:
-            if(gameManager->isPieceAt({position.x + 1, position.y})) break;
-            
+
             // Starting move
-            if (this->position.x == 1) {
+            if (this->position.x == 1 && !gameManager->isPieceAt({position.x + 2, position.y})) {
                 moves.push_back({position.x + 2, position.y});
             }
+
+            // Attack (left)
+            if(gameManager->isPieceAt({position.x + 1, position.y - 1})) {
+                moves.push_back({position.x + 1, position.y - 1});
+            }
+
+            // Attack (Right)
+            if(gameManager->isPieceAt({position.x + 1, position.y + 1})) {
+                moves.push_back({position.x + 1, position.y + 1});
+            }
+
+            // Piece in front of pawn
+            if(gameManager->isPieceAt({position.x + 1, position.y})) break;
+
+            // Regular move
             moves.push_back({position.x + 1, position.y});
+
             break;
     }
 
     return moves;
-}
-
-std::vector<Position> Pawn::moveAt(Position position)
-{
-    return std::vector<Position>();
 }

@@ -15,7 +15,6 @@ class Piece {
         
         virtual ~Piece() = default;
         std::vector<Position> getValidMoves();
-        virtual void moveAt(Position position) = 0;
         
         protected:
             virtual std::vector<Position> getMoves() = 0;

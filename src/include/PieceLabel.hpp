@@ -9,6 +9,7 @@ class PieceLabel : public QLabel {
     public:
         PieceLabel(QString str) : QLabel(str) {}
         void setDisplayPiece(std::shared_ptr<Piece> piece);
+        // void setBackgroundColor(Position position);
         std::shared_ptr<Piece> piece;
     signals:
         void clicked(PieceLabel* pieceLabel);

@@ -14,8 +14,12 @@ class GameWindow : public QMainWindow
         virtual ~GameWindow() = default;
         GameWindow();
         void createChessBoard(Chessboard &chessBoard);
-    public slots:
+        void clearHighlights();
+
+        public slots:
         void displayPieceMoves(PieceLabel* pieceLabel);
+        void displayMove(HighlightLabel *highlightLabel, Position originalPosition);
+        
     private:
         QGridLayout* chessBoardLayout = new QGridLayout();
         GameManager* gameManager;
