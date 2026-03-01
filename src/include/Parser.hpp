@@ -4,9 +4,9 @@
 
 class Parser {
     public:
-        Parser(Chessboard* chessboard) : chessBoard(chessboard) {}
+        Parser(Chessboard& chessboard) : chessBoard(chessboard) {}
         void parse(std::ifstream& file);
     private:
         void addPieceToBoard(Position position, std::string pieceType, PieceColor color);
-        Chessboard* chessBoard;
+        Chessboard& chessBoard;
 };

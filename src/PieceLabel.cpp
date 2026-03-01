@@ -1,25 +1,22 @@
-#include "PieceLabel.hpp"
 #include "Pawn.hpp"
-#include "PieceColor.hpp"
 #include "PieceLabel.hpp"
-#include <iostream>
+#include "PieceColor.hpp"
 
 void PieceLabel::setDisplayPiece(std::shared_ptr<Piece> piece)
 {
     if (piece == nullptr) return;
     setText(QString::fromStdString(getPieceSymbol(piece)));
-    // std::cout << getPieceSymbol(piece) << std::endl;
     setAlignment(Qt::AlignCenter);
     this->setFontSize(48);
     this->setPieceColor(piece);
+    this->piece = piece;
 }
 
 void PieceLabel::mousePressEvent(QMouseEvent *event)
 {
-    // TODO: Add logic to override this.
-    // if (event->button() == Qt::LeftButton) {
-    //     emit clicked(this);
-    // }
+    if (event->button() == Qt::LeftButton) {
+        emit clicked(this);
+    }
 }
 
 std::string PieceLabel::getPieceSymbol(std::shared_ptr<Piece> piece)

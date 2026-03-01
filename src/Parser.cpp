@@ -1,7 +1,7 @@
 #include "Parser.hpp"
 #include <string>
-#include <iostream>
 #include <limits>
+#include <iostream>
 #include "Pawn.hpp"
 
 // Test: Adding Pawn to the board.
@@ -35,6 +35,6 @@ void Parser::addPieceToBoard(Position position, std::string pieceType, PieceColo
 {
     if(pieceType == "pawn") {
         std::shared_ptr<Pawn> pawn = std::make_shared<Pawn>(position, color);
-        chessBoard->board[position.x][position.y]->setDisplayPiece(pawn);
+        chessBoard.board[position.x][position.y]->setDisplayPiece(pawn);
     }
 }

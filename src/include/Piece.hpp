@@ -13,8 +13,10 @@ class Piece {
             this->color = color;
         }
         
-    protected:
         virtual ~Piece() = default;
-        virtual std::vector<Position> getMovePositions() = 0;
+        std::vector<Position> getValidMoves();
         virtual std::vector<Position> moveAt(Position position) = 0;
+        
+        protected:
+            virtual std::vector<Position> getMoves() = 0;
 };

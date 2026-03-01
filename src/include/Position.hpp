@@ -1,4 +1,5 @@
 #pragma once
+#include <ostream>
 
 struct Position
 {
@@ -7,6 +8,10 @@ struct Position
 
     bool operator==(const Position& other) const { 
         return x == other.x && y == other.y; 
+    }
+
+    friend std::ostream& operator<<(std::ostream& stream, const Position& pos) {
+        return stream << "(" << pos.x << " : " << pos.y << ")";
     }
 
     bool isLegal(const int board_size = 8) {

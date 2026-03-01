@@ -4,7 +4,7 @@
 #include <QLabel>
 #include <QGridLayout>
 #include <QMainWindow>
-#include "Chessboard.hpp"
+#include "GameManager.hpp"
 
 class GameWindow : public QMainWindow 
 {
@@ -13,7 +13,9 @@ class GameWindow : public QMainWindow
         virtual ~GameWindow() = default;
         GameWindow();
         void createChessBoard();
+    public slots:
+        void displayPieceMoves(PieceLabel* pieceLabel);
     private:
         QGridLayout* chessBoardLayout = new QGridLayout();
-        Chessboard chessBoard;
+        GameManager* gameManager;
 };
