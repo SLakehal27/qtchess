@@ -44,25 +44,10 @@ void GameWindow::createChessBoard(Chessboard& chessBoard) {
 void GameWindow::displayPieceMoves(PieceLabel* pieceLabel) {
 
     clearHighlights();
+    
     if(pieceLabel->piece == nullptr) return;
-    // std::cout << "pos : " << pieceLabel->piece->position << std::endl;
-    std::vector<Position> validMoves = pieceLabel->piece->getValidMoves();
-    // std::cout << validMoves.size() << std::endl;
-    
-    // std::cout << "moves : [";
-    // if (validMoves.size() == 0) {
-    //     std:: cout << "]" << std::endl;
-    // }
-    // else {
-    //     for(int i = 0; i < validMoves.size() - 1; i++) {
-    //         std::cout << validMoves[i] << ", ";
-    //     }
-    
-    //     std::cout << validMoves[validMoves.size() - 1] << "]" << std::endl;
-    // }
-    // std::cout << "color : " << pieceLabel->piece->color << std::endl;
-    // std::cout << std::endl;
 
+    std::vector<Position> validMoves = pieceLabel->piece->getValidMoves();
     if(validMoves.size() == 0) return;
 
     for(int i = 0; i < validMoves.size(); i++) {
