@@ -17,17 +17,14 @@ GameWindow::GameWindow() {
     mainWidget->setLayout(chessBoardLayout);
 
     gameManager = GameManager::instance();
+    this->createChessBoard(gameManager->chessBoard);
 
-    this->createChessBoard();
-    
     Parser parser(gameManager->chessBoard);
     std::ifstream file("default.txt");
     parser.parse(file);
 }
 
-void GameWindow::createChessBoard() {
-    Chessboard& chessBoard = gameManager->chessBoard;
-
+void GameWindow::createChessBoard(Chessboard& chessBoard) {
     for (int i = 0; i < chessBoard.SIZE; i++) {
         for (int j = 0; j < chessBoard.SIZE; j++) {
             chessBoard.board[i][j] = new PieceLabel("");
@@ -46,25 +43,34 @@ void GameWindow::createChessBoard() {
 
 void GameWindow::displayPieceMoves(PieceLabel* pieceLabel) {
     if(pieceLabel->piece == nullptr) return;
-    
-    std::cout << "pos : " << pieceLabel->piece->position << std::endl;
-    
-    std::vector<Position> moves = pieceLabel->piece->getValidMoves();
 
-    std::cout << "moves : [";
-
-    if (moves.size() == 0) {
-        std:: cout << "]" << std::endl;
-    }
-    else {
-        for(int i = 0; i < moves.size() - 1; i++) {
-            std::cout << moves[i] << ", ";
+    if(highlightLabels.size() > 0) {
+        for (auto& highlightLabel : highlightLabels) {
+            highlightLabel->deleteLater();
         }
-    
-        std::cout << moves[moves.size() - 1] << "]" << std::endl;
+        highlightLabels.clear();
     }
+    
+    // std::cout << "pos : " << pieceLabel->piece->position << std::endl;
+    std::vector<Position> validMoves = pieceLabel->piece->getValidMoves();
+    if(validMoves.size() == 0) return;
 
+    // std::cout << "moves : [";
+    // if (validMoves.size() == 0) {
+    //     std:: cout << "]" << std::endl;
+    // }
+    // else {
+    //     for(int i = 0; i < validMoves.size() - 1; i++) {
+    //         std::cout << validMoves[i] << ", ";
+    //     }
+    
+    //     std::cout << validMoves[validMoves.size() - 1] << "]" << std::endl;
+    // }
+    // std::cout << "color : " << pieceLabel->piece->color << std::endl;
+    // std::cout << std::endl;
 
-    std::cout << "color : " << pieceLabel->piece->color << std::endl;
-    std::cout << std::endl;
+    for(int i = 0; i < validMoves.size(); i++) {
+        highlightLabels.push_back(new HighlightLabel());
+        chessBoardLayout->addWidget(highlightLabels[i], validMoves[i].x, validMoves[i].y);
+    }
 }
