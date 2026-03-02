@@ -3,6 +3,7 @@
 #include <limits>
 #include <iostream>
 #include "Pawn.hpp"
+#include "Knight.hpp"
 
 // Test: Adding Pawn to the board.
 // Position testPosition{6,2};
@@ -36,5 +37,10 @@ void Parser::addPieceToBoard(Position position, std::string pieceType, PieceColo
     if(pieceType == "pawn") {
         std::shared_ptr<Pawn> pawn = std::make_shared<Pawn>(position, color);
         chessBoard.board[position.x][position.y]->setDisplayPiece(pawn);
+    }
+
+    if(pieceType == "knight") {
+        std::shared_ptr<Knight> knight = std::make_shared<Knight>(position, color);
+        chessBoard.board[position.x][position.y]->setDisplayPiece(knight);
     }
 }

@@ -2,6 +2,8 @@
 #include "PieceLabel.hpp"
 #include "Pawn.hpp"
 #include "Parser.hpp"
+#include <QAbstractButton>
+#include "Knight.hpp"
 
 GameWindow::GameWindow() {
     QWidget* mainWidget = new QWidget;
@@ -94,6 +96,16 @@ void GameWindow::proposePromotion(PieceLabel *pieceLabel)
     msgBox.addButton("Rook", QMessageBox::ActionRole);
     msgBox.addButton("Bishop", QMessageBox::ActionRole);
     msgBox.exec();
+
+    QAbstractButton* clickedButton = msgBox.clickedButton();
+    
+    if(clickedButton == nullptr) return;
+
+    if(clickedButton->text().toStdString() == "Knight") {
+        pieceLabel->piece = std::make_shared<Knight>(pieceLabel->piece->position, pieceLabel->piece->color);
+        pieceLabel->setDisplayPiece(pieceLabel->piece);
+    }
+    
 }
 
 void GameWindow::clearHighlights() {
