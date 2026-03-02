@@ -13,16 +13,6 @@ void PieceLabel::setDisplayPiece(std::shared_ptr<Piece> piece)
     this->piece = piece;
 }
 
-// void PieceLabel::setBackgroundColor(Position position)
-// {
-//     GameManager* gameManager = GameManager::instance();
-//     if ((position.x + position.y) % 2 == 0) {
-//         gameManager->chessBoard.board[position.x][position.y]->setStyleSheet("background-color : #D7BEA8");
-//     } else {
-//         gameManager->chessBoard.board[position.x][position.y]->setStyleSheet("background-color : #B49286");
-//     }
-// }
-
 void PieceLabel::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() != Qt::LeftButton) return;
