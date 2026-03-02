@@ -13,10 +13,10 @@ std::vector<Position> Pawn::getMoves()
         case PieceColor::White:
         
             // Starting move
-            if (this->position.x == 6 && !gameManager->isPieceAt({position.x - 2, position.y})) {
+            if (this->position.x == 6 && !gameManager->isPieceAt({position.x - 1, position.y})) {
                 moves.push_back({position.x - 2, position.y});
             }
-
+            
             // Attack (left)
             if(gameManager->isPieceAt({position.x - 1, position.y - 1})) {
                 moves.push_back({position.x - 1, position.y - 1});
@@ -26,17 +26,17 @@ std::vector<Position> Pawn::getMoves()
             if(gameManager->isPieceAt({position.x - 1, position.y + 1})) {
                 moves.push_back({position.x - 1, position.y + 1});
             }
-
+            
             // Piece in front of pawn
             if(gameManager->isPieceAt({position.x - 1, position.y})) break;
-
+            
             // Regular move
             moves.push_back({position.x - 1, position.y});
             break;
         case PieceColor::Black:
 
             // Starting move
-            if (this->position.x == 1 && !gameManager->isPieceAt({position.x + 2, position.y})) {
+            if (this->position.x == 1 && !gameManager->isPieceAt({position.x + 1, position.y})) {
                 moves.push_back({position.x + 2, position.y});
             }
 
