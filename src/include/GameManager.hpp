@@ -1,9 +1,12 @@
 #pragma once
 #include "Chessboard.hpp"
+#include <memory>
+#include "Piece.hpp"
 
 class GameManager {
     public:
         static GameManager* instance();
         bool isPieceAt(Position position);
+        bool canPromotePiece(std::shared_ptr<Piece> piece);
         Chessboard chessBoard;
 };

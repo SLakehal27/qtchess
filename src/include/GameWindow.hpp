@@ -3,6 +3,7 @@
 #include <iostream>
 #include <QLabel>
 #include <QGridLayout>
+#include <QMessageBox>
 #include <QMainWindow>
 #include "GameManager.hpp"
 #include "HighlightLabel.hpp"
@@ -21,6 +22,8 @@ class GameWindow : public QMainWindow
         void displayMove(HighlightLabel *highlightLabel, Position originalPosition);
         
     private:
+        void proposePromotion(PieceLabel* pieceLabel);
+
         QGridLayout* chessBoardLayout = new QGridLayout();
         GameManager* gameManager;
         std::vector<HighlightLabel*> highlightLabels;

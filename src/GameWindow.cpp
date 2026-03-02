@@ -44,7 +44,7 @@ void GameWindow::createChessBoard(Chessboard& chessBoard) {
 void GameWindow::displayPieceMoves(PieceLabel* pieceLabel) {
 
     clearHighlights();
-    
+
     if(pieceLabel->piece == nullptr) return;
 
     std::vector<Position> validMoves = pieceLabel->piece->getValidMoves();
@@ -65,16 +65,36 @@ void GameWindow::displayMove(HighlightLabel* highlightLabel, Position originalPo
     int x, y, rowSpan, colSpan;
     chessBoardLayout->getItemPosition(chessBoardLayout->indexOf(highlightLabel), &x, &y, &rowSpan, &colSpan);
 
-    PieceLabel* pieceLabel = gameManager->chessBoard.board[originalPosition.x][originalPosition.y];
+    PieceLabel* originalPieceLabel = gameManager->chessBoard.board[originalPosition.x][originalPosition.y];
+    PieceLabel* newPieceLabel = gameManager->chessBoard.board[x][y];
+    
+    // Reset new position
+    originalPieceLabel->setText("");
+    disconnect(originalPieceLabel, nullptr, nullptr, nullptr);
 
-    pieceLabel->setText("");
-    disconnect(pieceLabel, nullptr, nullptr, nullptr);
+    originalPieceLabel->piece->position = Position{x, y};
+    newPieceLabel->setDisplayPiece(originalPieceLabel->piece);
+    connect(newPieceLabel, SIGNAL(clicked(PieceLabel*)), this, SLOT(displayPieceMoves(PieceLabel*)));
+    originalPieceLabel->piece.reset();
 
-    pieceLabel->piece->position = Position{x, y};
-    gameManager->chessBoard.board[x][y]->setDisplayPiece(pieceLabel->piece);
-    connect(gameManager->chessBoard.board[x][y], SIGNAL(clicked(PieceLabel*)), this, SLOT(displayPieceMoves(PieceLabel*)));
-    pieceLabel->piece.reset();
-} 
+    // Promotion
+    if(gameManager->canPromotePiece(newPieceLabel->piece)) {
+        proposePromotion(newPieceLabel);
+    }
+}
+
+void GameWindow::proposePromotion(PieceLabel *pieceLabel)
+{
+    QMessageBox msgBox(this);
+    msgBox.setWindowTitle("Promotion");
+    msgBox.setText("<center>Choose a piece to promote your pawn to</center>");
+    
+    msgBox.addButton("Queen", QMessageBox::ActionRole);
+    msgBox.addButton("Knight", QMessageBox::ActionRole);
+    msgBox.addButton("Rook", QMessageBox::ActionRole);
+    msgBox.addButton("Bishop", QMessageBox::ActionRole);
+    msgBox.exec();
+}
 
 void GameWindow::clearHighlights() {
     if(highlightLabels.size() == 0) return;
