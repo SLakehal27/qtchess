@@ -7,6 +7,7 @@ class GameManager {
     public:
         static GameManager* instance();
         bool isPieceAt(Position position);
+        bool isSameColorAt(Position position, PieceColor color);
         bool canPromotePiece(std::shared_ptr<Piece> piece);
         Chessboard chessBoard;
 };

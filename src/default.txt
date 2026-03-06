@@ -1,6 +1,6 @@
 == Default Game Mode ==
 knight 0 2 b
-knight 0 4 b
+knight 0 5 b
 pawn 1 0 b
 pawn 1 1 b
 pawn 1 2 b

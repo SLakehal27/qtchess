@@ -1,5 +1,6 @@
 #include "GameManager.hpp"
 #include "Pawn.hpp"
+#include <iostream>
 
 GameManager *GameManager::instance()
 {
@@ -9,8 +10,15 @@ GameManager *GameManager::instance()
 
 bool GameManager::isPieceAt(Position position)
 {
-    if (!position.isLegal() || chessBoard.board[position.x][position.y] == nullptr) return false;
+    if (!position.isLegal()) return false;
     return chessBoard.board[position.x][position.y]->text() != "";
+}
+
+bool GameManager::isSameColorAt(Position position, PieceColor color)
+{
+    std::shared_ptr<Piece> otherPiece = chessBoard.board[position.x][position.y]->piece;
+    if(otherPiece == nullptr) return false;
+    return otherPiece->color == color;
 }
 
 bool GameManager::canPromotePiece(std::shared_ptr<Piece> piece)
