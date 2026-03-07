@@ -2,6 +2,7 @@
 #include <string>
 #include <limits>
 #include <iostream>
+#include "GameManager.hpp"
 #include "Pawn.hpp"
 #include "Knight.hpp"
 
@@ -11,7 +12,7 @@
 
 void Parser::parse(std::ifstream& file)
 {
-    std::string str;
+    std::string line;
     std::string type = "";
     Position position;
     std::string color = "";
@@ -21,7 +22,7 @@ void Parser::parse(std::ifstream& file)
         return;
     }
 
-    while(std::getline(file, str)) {
+    while(std::getline(file, line)) {
         file >> type;
         file >> position.x;
         file >> position.y;
@@ -34,13 +35,17 @@ void Parser::parse(std::ifstream& file)
 
 void Parser::addPieceToBoard(Position position, std::string pieceType, PieceColor color)
 {
+    GameManager* gameManager = GameManager::instance();
+
     if(pieceType == "pawn") {
         std::shared_ptr<Pawn> pawn = std::make_shared<Pawn>(position, color);
         chessBoard.board[position.x][position.y]->setDisplayPiece(pawn);
+        gameManager->pieceLabels.push_back(chessBoard.board[position.x][position.y]);
     }
-
     if(pieceType == "knight") {
         std::shared_ptr<Knight> knight = std::make_shared<Knight>(position, color);
         chessBoard.board[position.x][position.y]->setDisplayPiece(knight);
+        gameManager->pieceLabels.push_back(chessBoard.board[position.x][position.y]);
     }
+
 }

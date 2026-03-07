@@ -2,6 +2,7 @@
 #include "PieceLabel.hpp"
 #include "Pawn.hpp"
 #include "Parser.hpp"
+#include <algorithm>
 #include <QAbstractButton>
 #include "Knight.hpp"
 
@@ -64,10 +65,15 @@ void GameWindow::displayMove(HighlightLabel* highlightLabel, Position originalPo
 {
     clearHighlights();
 
+    GameManager* gameManager = GameManager::instance();
+    
     int x, y, rowSpan, colSpan;
     chessBoardLayout->getItemPosition(chessBoardLayout->indexOf(highlightLabel), &x, &y, &rowSpan, &colSpan);
 
-    PieceLabel* originalPieceLabel = gameManager->chessBoard.board[originalPosition.x][originalPosition.y];
+    int pieceLabelIdx = std::find(gameManager->pieceLabels.begin(), gameManager->pieceLabels.end(), 
+    gameManager->chessBoard.board[originalPosition.x][originalPosition.y]) - gameManager->pieceLabels.begin();
+    
+    PieceLabel* originalPieceLabel = gameManager->pieceLabels[pieceLabelIdx];
     PieceLabel* newPieceLabel = gameManager->chessBoard.board[x][y];
     
     // Reset new position
@@ -75,9 +81,12 @@ void GameWindow::displayMove(HighlightLabel* highlightLabel, Position originalPo
     disconnect(originalPieceLabel, nullptr, nullptr, nullptr);
 
     originalPieceLabel->piece->position = Position{x, y};
+
     newPieceLabel->setDisplayPiece(originalPieceLabel->piece);
     connect(newPieceLabel, SIGNAL(clicked(PieceLabel*)), this, SLOT(displayPieceMoves(PieceLabel*)));
     originalPieceLabel->piece.reset();
+
+    gameManager->pieceLabels[pieceLabelIdx] = newPieceLabel;
 
     // Promotion
     if(gameManager->canPromotePiece(newPieceLabel->piece)) {
