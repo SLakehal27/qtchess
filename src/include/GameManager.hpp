@@ -12,4 +12,5 @@ class GameManager {
 
         Chessboard chessBoard;
         std::vector<PieceLabel*> pieceLabels;
+        int turnCounter;
 };

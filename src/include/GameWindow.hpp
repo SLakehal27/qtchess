@@ -16,6 +16,7 @@ class GameWindow : public QMainWindow
         GameWindow();
         void createChessBoard(Chessboard &chessBoard);
         void clearHighlights();
+        void togglePieceLabels();
 
         public slots:
         void displayPieceMoves(PieceLabel* pieceLabel);

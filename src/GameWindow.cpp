@@ -25,6 +25,9 @@ GameWindow::GameWindow() {
     Parser parser(gameManager->chessBoard);
     std::ifstream file("default.txt");
     parser.parse(file);
+
+    togglePieceLabels();
+
 }
 
 void GameWindow::createChessBoard(Chessboard& chessBoard) {
@@ -65,7 +68,7 @@ void GameWindow::displayMove(HighlightLabel* highlightLabel, Position originalPo
 {
     clearHighlights();
 
-    GameManager* gameManager = GameManager::instance();
+    gameManager->turnCounter++;
     
     int x, y, rowSpan, colSpan;
     chessBoardLayout->getItemPosition(chessBoardLayout->indexOf(highlightLabel), &x, &y, &rowSpan, &colSpan);
@@ -78,18 +81,17 @@ void GameWindow::displayMove(HighlightLabel* highlightLabel, Position originalPo
     
     // Reset new position
     originalPieceLabel->setText("");
-    disconnect(originalPieceLabel, nullptr, nullptr, nullptr);
-
     originalPieceLabel->piece->position = Position{x, y};
-
     newPieceLabel->setDisplayPiece(originalPieceLabel->piece);
-    connect(newPieceLabel, SIGNAL(clicked(PieceLabel*)), this, SLOT(displayPieceMoves(PieceLabel*)));
     originalPieceLabel->piece.reset();
 
     gameManager->pieceLabels[pieceLabelIdx] = newPieceLabel;
 
+    // // Toggles connexions
+    togglePieceLabels();
+
     // Promotion
-    if(gameManager->canPromotePiece(newPieceLabel->piece)) {
+    if (gameManager->canPromotePiece(newPieceLabel->piece)) {
         proposePromotion(newPieceLabel);
     }
 }
@@ -125,4 +127,20 @@ void GameWindow::clearHighlights() {
     }
     
     highlightLabels.clear();
+}
+
+void GameWindow::togglePieceLabels()
+{
+    PieceColor colorToDisable = (gameManager->turnCounter % 2 == 0) ? PieceColor::Black : PieceColor::White;
+
+    for(PieceLabel* pieceLabel: gameManager->pieceLabels) {
+
+        if(pieceLabel->piece != nullptr && pieceLabel->piece->color != colorToDisable) {
+            connect(pieceLabel, SIGNAL(clicked(PieceLabel*)), this, SLOT(displayPieceMoves(PieceLabel*)));
+            continue;
+        }
+
+        disconnect(pieceLabel, nullptr, nullptr, nullptr);
+
+    }
 }
