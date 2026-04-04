@@ -5,6 +5,7 @@
 #include "GameManager.hpp"
 #include "Pawn.hpp"
 #include "Knight.hpp"
+#include "Bishop.hpp"
 
 // Test: Adding Pawn to the board.
 // Position testPosition{6,2};
@@ -42,10 +43,18 @@ void Parser::addPieceToBoard(Position position, std::string pieceType, PieceColo
         chessBoard.board[position.x][position.y]->setDisplayPiece(pawn);
         gameManager->pieceLabels.push_back(chessBoard.board[position.x][position.y]);
     }
+
     if(pieceType == "knight") {
         std::shared_ptr<Knight> knight = std::make_shared<Knight>(position, color);
         chessBoard.board[position.x][position.y]->setDisplayPiece(knight);
         gameManager->pieceLabels.push_back(chessBoard.board[position.x][position.y]);
     }
+
+    if(pieceType == "bishop") {
+        std::shared_ptr<Bishop> bishop = std::make_shared<Bishop>(position, color);
+        chessBoard.board[position.x][position.y]->setDisplayPiece(bishop);
+        gameManager->pieceLabels.push_back(chessBoard.board[position.x][position.y]);
+    }
+
 
 }

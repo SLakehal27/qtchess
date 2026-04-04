@@ -9,6 +9,7 @@ class PieceLabel : public QLabel {
     public:
         PieceLabel(QString str) : QLabel(str) {}
         void setDisplayPiece(std::shared_ptr<Piece> piece);
+        template <class T> void promote(std::shared_ptr<Piece> piece);
         std::shared_ptr<Piece> piece;
     signals:
         void clicked(PieceLabel* pieceLabel);
@@ -19,3 +20,10 @@ class PieceLabel : public QLabel {
         void setPieceColor(std::shared_ptr<Piece> piece);
     
 };
+
+template <class T>
+inline void PieceLabel::promote(std::shared_ptr<Piece> piece)
+{
+    piece = std::make_shared<T>(piece->position, piece->color);
+    setDisplayPiece(piece);
+}

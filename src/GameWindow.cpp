@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <QAbstractButton>
 #include "Knight.hpp"
+#include "Bishop.hpp"
 
 GameWindow::GameWindow() {
     QWidget* mainWidget = new QWidget;
@@ -26,7 +27,8 @@ GameWindow::GameWindow() {
     std::ifstream file("default.txt");
     parser.parse(file);
 
-    togglePieceLabels();
+    // Initial Toggle (to start as white)
+    // togglePieceLabels();
 
 }
 
@@ -88,7 +90,7 @@ void GameWindow::displayMove(HighlightLabel* highlightLabel, Position originalPo
     gameManager->pieceLabels[pieceLabelIdx] = newPieceLabel;
 
     // // Toggles connexions
-    togglePieceLabels();
+    // togglePieceLabels();
 
     // Promotion
     if (gameManager->canPromotePiece(newPieceLabel->piece)) {
@@ -113,8 +115,10 @@ void GameWindow::proposePromotion(PieceLabel *pieceLabel)
     if(clickedButton == nullptr) return;
 
     if(clickedButton->text().toStdString() == "Knight") {
-        pieceLabel->piece = std::make_shared<Knight>(pieceLabel->piece->position, pieceLabel->piece->color);
-        pieceLabel->setDisplayPiece(pieceLabel->piece);
+        pieceLabel->promote<Knight>(pieceLabel->piece);
+    }
+    else if(clickedButton->text().toStdString() == "Bishop") {
+        pieceLabel->promote<Bishop>(pieceLabel->piece);
     }
     
 }

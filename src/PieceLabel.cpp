@@ -3,6 +3,7 @@
 #include "PieceColor.hpp"
 #include "GameManager.hpp"
 #include "Knight.hpp"
+#include "Bishop.hpp"
 
 void PieceLabel::setDisplayPiece(std::shared_ptr<Piece> piece)
 {
@@ -24,6 +25,7 @@ std::string PieceLabel::getPieceSymbol(std::shared_ptr<Piece> piece)
 {
     if (auto pawn = std::dynamic_pointer_cast<Pawn>(piece)) return "\u265f";
     if (auto knight = std::dynamic_pointer_cast<Knight>(piece)) return "\u265e";
+    if (auto bishop = std::dynamic_pointer_cast<Bishop>(piece)) return "\u265d";
     return std::string();
 }
 
