@@ -27,3 +27,15 @@ bool GameManager::canPromotePiece(std::shared_ptr<Piece> piece)
     if(piece->color == PieceColor::White) return piece->position.x == 0;
     return piece->position.x == 7;
 }
+
+bool GameManager::isPieceInBetweenMoves(std::vector<Position>& moves, Position position, PieceColor color)
+{
+    if(isPieceAt(position)) {
+        if(isSameColorAt(position, color)) return true;
+        moves.push_back(position);
+        return true;
+    }
+    
+    return false;
+}
+
