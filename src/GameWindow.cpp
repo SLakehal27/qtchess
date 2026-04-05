@@ -7,6 +7,7 @@
 #include "Knight.hpp"
 #include "Bishop.hpp"
 #include "Rook.hpp"
+#include "Queen.hpp"
 
 GameWindow::GameWindow() {
     QWidget* mainWidget = new QWidget;
@@ -121,6 +122,8 @@ void GameWindow::proposePromotion(PieceLabel *pieceLabel)
         pieceLabel->promote<Bishop>(pieceLabel->piece);
     } else if(clickedButton->text().toStdString() == "Rook") {
         pieceLabel->promote<Rook>(pieceLabel->piece);
+    } else if(clickedButton->text().toStdString() == "Queen") {
+        pieceLabel->promote<Queen>(pieceLabel->piece);
     }
 }
 

@@ -5,6 +5,7 @@
 #include "Knight.hpp"
 #include "Bishop.hpp"
 #include "Rook.hpp"
+#include "Queen.hpp"
 
 void PieceLabel::setDisplayPiece(std::shared_ptr<Piece> piece)
 {
@@ -28,6 +29,7 @@ std::string PieceLabel::getPieceSymbol(std::shared_ptr<Piece> piece)
     if (auto knight = std::dynamic_pointer_cast<Knight>(piece)) return "\u265e";
     if (auto bishop = std::dynamic_pointer_cast<Bishop>(piece)) return "\u265d";
     if (auto rook = std::dynamic_pointer_cast<Rook>(piece)) return "\u265c";
+    if (auto queen = std::dynamic_pointer_cast<Queen>(piece)) return "\u265b";
     return std::string();
 }
 

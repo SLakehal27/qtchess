@@ -7,6 +7,7 @@
 #include "Knight.hpp"
 #include "Bishop.hpp"
 #include "Rook.hpp"
+#include "Queen.hpp"
 
 void Parser::parse(std::ifstream& file)
 {
@@ -41,5 +42,7 @@ void Parser::addPiece(Position position, std::string pieceType, PieceColor color
         addPieceToBoard<Bishop>(position, color);
     } else if(pieceType == "rook") {
         addPieceToBoard<Rook>(position, color);
+    } else if(pieceType == "queen") {
+        addPieceToBoard<Queen>(position, color);
     }
 }
