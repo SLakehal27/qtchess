@@ -3,9 +3,7 @@
 std::vector<Position> Bishop::getMoves()
 {
     std::vector<Position> moves;
-
     GameManager* gameManager = GameManager::instance();
-
     int boardSize = gameManager->chessBoard.SIZE;
 
     for(int i = 1; i < boardSize; i++) {

@@ -6,6 +6,7 @@
 #include <QAbstractButton>
 #include "Knight.hpp"
 #include "Bishop.hpp"
+#include "Rook.hpp"
 
 GameWindow::GameWindow() {
     QWidget* mainWidget = new QWidget;
@@ -116,11 +117,11 @@ void GameWindow::proposePromotion(PieceLabel *pieceLabel)
 
     if(clickedButton->text().toStdString() == "Knight") {
         pieceLabel->promote<Knight>(pieceLabel->piece);
-    }
-    else if(clickedButton->text().toStdString() == "Bishop") {
+    } else if(clickedButton->text().toStdString() == "Bishop") {
         pieceLabel->promote<Bishop>(pieceLabel->piece);
+    } else if(clickedButton->text().toStdString() == "Rook") {
+        pieceLabel->promote<Rook>(pieceLabel->piece);
     }
-    
 }
 
 void GameWindow::clearHighlights() {
@@ -145,6 +146,5 @@ void GameWindow::togglePieceLabels()
         }
 
         disconnect(pieceLabel, nullptr, nullptr, nullptr);
-
     }
 }

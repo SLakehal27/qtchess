@@ -6,10 +6,7 @@
 #include "Pawn.hpp"
 #include "Knight.hpp"
 #include "Bishop.hpp"
-
-// Test: Adding Pawn to the board.
-// Position testPosition{6,2};
-
+#include "Rook.hpp"
 
 void Parser::parse(std::ifstream& file)
 {
@@ -42,5 +39,7 @@ void Parser::addPiece(Position position, std::string pieceType, PieceColor color
         addPieceToBoard<Knight>(position, color);
     } else if(pieceType == "bishop") {
         addPieceToBoard<Bishop>(position, color);
+    } else if(pieceType == "rook") {
+        addPieceToBoard<Rook>(position, color);
     }
 }
