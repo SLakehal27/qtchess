@@ -3,6 +3,7 @@ rook 0 0 b
 knight 0 1 b
 bishop 0 2 b
 queen 0 3 b
+king 0 4 b
 bishop 0 5 b
 knight 0 6 b
 rook 0 7 b
@@ -19,6 +20,7 @@ rook 7 0 w
 knight 7 1 w
 bishop 7 2 w
 queen 7 3 w
+king 7 4 w
 bishop 7 5 w
 knight 7 6 w
 rook 7 7 w

@@ -21,21 +21,17 @@ bool GameManager::isSameColorAt(Position position, PieceColor color)
     return otherPiece->color == color;
 }
 
+bool GameManager::isPieceInBetweenMoves(std::vector<Position>& moves, Position position, PieceColor color)
+{
+    if(!isPieceAt(position)) return false;
+    if(isSameColorAt(position, color)) return true;
+    moves.push_back(position);
+    return true;
+}
+
 bool GameManager::canPromotePiece(std::shared_ptr<Piece> piece)
 {
     if(piece == nullptr || (std::dynamic_pointer_cast<Pawn>(piece) == nullptr) ) return false;
     if(piece->color == PieceColor::White) return piece->position.x == 0;
     return piece->position.x == 7;
 }
-
-bool GameManager::isPieceInBetweenMoves(std::vector<Position>& moves, Position position, PieceColor color)
-{
-    if(isPieceAt(position)) {
-        if(isSameColorAt(position, color)) return true;
-        moves.push_back(position);
-        return true;
-    }
-    
-    return false;
-}
-
