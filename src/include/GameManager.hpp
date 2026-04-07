@@ -10,6 +10,7 @@ class GameManager {
         bool isSameColorAt(Position position, PieceColor color);
         bool canPromotePiece(std::shared_ptr<Piece> piece);
         bool isPieceInBetweenMoves(std::vector<Position>& moves, Position position, PieceColor color);
+        bool isCheckMove(std::shared_ptr<Piece> piece);
 
         Chessboard chessBoard;
         std::vector<PieceLabel*> pieceLabels;

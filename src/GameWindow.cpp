@@ -91,8 +91,15 @@ void GameWindow::displayMove(HighlightLabel* highlightLabel, Position originalPo
 
     gameManager->pieceLabels[pieceLabelIdx] = newPieceLabel;
 
+    // std::cout << "Is check move : " << gameManager->isCheckMove(newPieceLabel->piece) << std::endl;
+
     // // Toggles connexions
     // togglePieceLabels();
+
+    // Check
+    if(gameManager->isCheckMove(newPieceLabel->piece)) {
+        displayCheck(newPieceLabel->piece->color);
+    }
 
     // Promotion
     if (gameManager->canPromotePiece(newPieceLabel->piece)) {
@@ -125,6 +132,17 @@ void GameWindow::proposePromotion(PieceLabel *pieceLabel)
     } else if(clickedButton->text().toStdString() == "Queen") {
         pieceLabel->promote<Queen>(pieceLabel->piece);
     }
+}
+
+void GameWindow::displayCheck(PieceColor attackColor)
+{
+    QString msgColor = attackColor == PieceColor::White ?  "Black" : "White";
+
+    QMessageBox msgBox(this);
+    msgBox.setWindowTitle("Check");
+    msgBox.setText("<center> Check for (" + msgColor + ") King. </center>");
+     msgBox.addButton("Ok", QMessageBox::ActionRole);
+    msgBox.exec();
 }
 
 void GameWindow::clearHighlights() {

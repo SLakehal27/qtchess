@@ -24,6 +24,7 @@ class GameWindow : public QMainWindow
         
     private:
         void proposePromotion(PieceLabel* pieceLabel);
+        void displayCheck(PieceColor attackColor);
 
         QGridLayout* chessBoardLayout = new QGridLayout();
         GameManager* gameManager;

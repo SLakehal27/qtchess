@@ -1,5 +1,6 @@
 #include "GameManager.hpp"
 #include "Pawn.hpp"
+#include "King.hpp"
 #include <iostream>
 
 GameManager *GameManager::instance()
@@ -34,4 +35,13 @@ bool GameManager::canPromotePiece(std::shared_ptr<Piece> piece)
     if(piece == nullptr || (std::dynamic_pointer_cast<Pawn>(piece) == nullptr) ) return false;
     if(piece->color == PieceColor::White) return piece->position.x == 0;
     return piece->position.x == 7;
+}
+
+bool GameManager::isCheckMove(std::shared_ptr<Piece> piece) {
+    for(Position pos : piece->getValidMoves()) {
+        if(!isSameColorAt(pos, piece->color) && std::dynamic_pointer_cast<King>(chessBoard.board[pos.x][pos.y]->piece)) {
+            return true;
+        }
+    }
+    return false;
 }
